@@ -1,5 +1,7 @@
 SRCS		= main.c		\
-			  func_ft.c
+			  func_ft.c		\
+			  initialize.c	\
+			  parse.c
 
 OBJS		= ${SRCS:.c=.o} 
 
@@ -18,7 +20,7 @@ all:		${NAME}
 bonus:		${NAME}
 
 ${NAME}:	$(OBJS)
-			$(CC) $(CCFLAGS) $(OBJS) $(NAME)
+			$(CC) $(CCFLAGS) $(OBJS) -o $(NAME)
 
 clean:
 					rm -f ${OBJS}
