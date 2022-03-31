@@ -1,32 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 15:23:58 by msainton          #+#    #+#             */
-/*   Updated: 2022/03/31 14:11:06 by msainton         ###   ########.fr       */
+/*   Created: 2022/03/31 10:40:16 by msainton          #+#    #+#             */
+/*   Updated: 2022/03/31 16:35:39 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
-int	main(int argc, char **argv)
-{
-	t_info	info;
 
-	if (argc == 5 || argc == 6)
+
+void	*routine(t_info *info)
+{
+	int i;
+
+	i = 0;
+	while (i < info->n_philo)
 	{
-		init_info(&info, argv);
-		init_philo_fork(&info);
-		//pthread_mutex_init(&mutex, NULL);
-		create_threads_even(info.philo, info.n_philo);
-		create_threads_odd(info.philo, info.n_philo);
-		join_mythread(info.philo, info.n_philo);
-		//pthread_mutex_destroy(&mutex);
-	//	get_time();
+		printf("philo pair %d\n", i);
+		i++;
 	}
-	else
-		ft_putstr_fd("Error: wrong number of argument", 2);
+	return (0);
+}
+
+void	*routine1(t_info *info)
+{
+	int i;
+
+	i = 0;
+	while (i < info->n_philo)
+	{
+		printf("philo inpair %d\n", i);
+		i++;
+	}
+	return (0);
 }

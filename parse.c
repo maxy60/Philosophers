@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:13:09 by msainton          #+#    #+#             */
-/*   Updated: 2022/03/30 17:01:00 by msainton         ###   ########.fr       */
+/*   Updated: 2022/03/31 08:58:32 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,16 @@ void	init_info(t_info *info, char **argv)
 	info->time_to_sleep = check_max(argv[4]);
 	if (argv[5])
 		info->n_of_times_philo_eat = check_max(argv[5]);
+}
+
+#include <stdio.h>
+int	get_time()
+{
+	int				timestamp_in_ms;
+	struct timeval time;
+	
+	gettimeofday(&time, NULL);
+	timestamp_in_ms = time.tv_usec / 1000;
+	printf("time : %d\n",timestamp_in_ms);
+	return (timestamp_in_ms);
 }

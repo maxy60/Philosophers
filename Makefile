@@ -1,7 +1,8 @@
 SRCS		= main.c		\
 			  func_ft.c		\
 			  initialize.c	\
-			  parse.c
+			  parse.c		\
+			  routine.c
 
 OBJS		= ${SRCS:.c=.o} 
 
@@ -10,7 +11,7 @@ NAME		= Philosophers
 
 CC			= clang
 
-CCFLAGS	= -g3 -Wall -Werror -Wextra
+CCFLAGS	= -g3 -Wall -Werror -Wextra -pthread
 
 %.o: %.c 
 		$(CC) $(CCFLAGS) -c $< -o $@
