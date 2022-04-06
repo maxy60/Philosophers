@@ -6,36 +6,26 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:40:16 by msainton          #+#    #+#             */
-/*   Updated: 2022/03/31 16:35:39 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/06 13:55:47 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
+//pthread_mutex_t	meal;
 
-
-void	*routine(t_info *info)
+void	*routine(t_philo *philo)
 {
-	int i;
+	pthread_mutex_lock(philo->meal);
+	int	i;
 
 	i = 0;
-	while (i < info->n_philo)
+	while (i <= philo->info->n_philo)
 	{
-		printf("philo pair %d\n", i);
+		printf("PHILOOOO %d\n", philo->info->n_philo);
+		printf("philo: is eating %d\n", i);
 		i++;
 	}
-	return (0);
-}
-
-void	*routine1(t_info *info)
-{
-	int i;
-
-	i = 0;
-	while (i < info->n_philo)
-	{
-		printf("philo inpair %d\n", i);
-		i++;
-	}
+	pthread_mutex_unlock(philo->meal);
 	return (0);
 }

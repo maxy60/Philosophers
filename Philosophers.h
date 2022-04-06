@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:47:15 by msainton          #+#    #+#             */
-/*   Updated: 2022/03/31 13:40:12 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/06 13:46:18 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 
 typedef struct s_info
 {
-	int		n_philo;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		n_of_times_philo_eat;
+	int				n_philo;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				n_of_times_philo_eat;
 	struct	s_philo	*philo;
 }	t_info;
 
@@ -33,6 +33,8 @@ typedef struct s_philo
 	int				id;
 	pthread_t		thread;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	*meal;
+	t_info			*info;
 }	t_philo;
 
 /** function lib    **/

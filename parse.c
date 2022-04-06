@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:13:09 by msainton          #+#    #+#             */
-/*   Updated: 2022/03/31 08:58:32 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/06 11:03:09 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int check_max(char *str)
 {
 	long int i;
 	
-	check_if_number(str);
-	i = ft_atoi(str);
+	if (check_if_number(str) == 1)
+		i = ft_atoi(str);
+	else
+		return (-1);
 	if (i > 2147483647 || i < -2147483648)
 		return (0);
 	return ((int)i);
