@@ -1,6 +1,0 @@
-
-phtread:
-#include <phtread.h>
-gcc -g -pthread main.c -o main
-
-phtread_join(); = wait() for thread
