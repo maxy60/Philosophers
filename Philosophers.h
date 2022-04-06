@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:47:15 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/06 13:46:18 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:43:59 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_philo
 	int				id;
 	pthread_t		thread;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*meal;
+	pthread_mutex_t	meal;
 	t_info			*info;
 }	t_philo;
 
