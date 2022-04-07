@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:40:16 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/07 16:03:11 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:40:51 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	drop_fork(t_philo *philo)
 void	*routine(t_philo *philo)
 {
 	take_fork(philo);
-	printf("je prend ma fourchette\n");
-	printf("et je prend ta fourchette fdp\n");
+	printf("je prend ma fourchette [%d] \n",philo->id);
+	printf("et je prend ta fourchette fdp  [%d]  \n",philo->id - 1);
 	drop_fork(philo);
 	return (0);
 }

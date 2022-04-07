@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:52:36 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/07 15:32:52 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:44:28 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    init_philo_fork(t_info *info)
 	pthread_mutex_t *forks;
 	int	i;
 	
-	i = 1;
+	i = 0;
 	forks = malloc(sizeof(pthread_mutex_t) * info->n_philo);
 	if (!forks)
 		return ;
@@ -27,7 +27,7 @@ void    init_philo_fork(t_info *info)
 	if (!info->philo)
 		return ;
 
-	while (i <= info->n_philo)
+	while (i < info->n_philo)
 	{
 		info->philo[i].id = i;
 		info->philo[i].forks = forks;
@@ -41,8 +41,8 @@ int	create_threads_even(t_philo *philo, int n_philo)
 {
 	int	i;
 	
-	i = 2;
-	while (i <= n_philo)
+	i = 0;
+	while (i < n_philo)
 	{
 		printf("philo %d is create\n", i);
 		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
@@ -58,7 +58,7 @@ int	create_threads_odd(t_philo *philo, int n_philo)
 	int	i;
 	
 	i = 1;
-	while (i <= n_philo)
+	while (i < n_philo)
 	{
 		printf("philo %d is create\n", i);
 		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
@@ -73,8 +73,8 @@ int	join_mythread(t_philo *philo, int n_philo)
 {
 	int	i;
 
-	i = 1;
-	while (i <= n_philo)
+	i = 0;
+	while (i < n_philo)
 	{
 		if  (pthread_join(philo[i].thread, NULL) != 0)
 			return (-1);
