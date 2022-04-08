@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:13:09 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/07 12:54:45 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/08 16:39:54 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int check_max(char *str)
 
 void	init_info(t_info *info, char **argv)
 {
+	info->time_in_process = get_time();
 	info->n_philo = check_max(argv[1]);
 	info->time_to_die = check_max(argv[2]);
 	info->time_to_eat = check_max(argv[3]);
@@ -52,13 +53,23 @@ void	init_info(t_info *info, char **argv)
 }
 
 #include <stdio.h>
-int	get_time()
+long int	get_time()
 {
-	int				timestamp_in_ms;
-	struct timeval time;
+	long int		timestamp_in_ms;
+	struct timeval	time;
 	
 	gettimeofday(&time, NULL);
-	timestamp_in_ms = time.tv_usec / 1000;
-	printf("time : %d\n",timestamp_in_ms);
+	timestamp_in_ms = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (timestamp_in_ms);
+}
+
+long int	get_time_in_process(t_info *info)
+{
+	long int	tmp;
+	long int	new_tmp;
+
+	tmp = get_time();
+	new_tmp = tmp - info->time_in_process;
+	printf("new tmp = %ld\ninfo->timeproc = %ld\ntmp: %ld\n", new_tmp, info->time_in_process, tmp);
+	return (tmp);
 }

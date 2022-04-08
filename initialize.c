@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:52:36 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/07 16:44:28 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/08 12:20:16 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void    init_philo_fork(t_info *info)
 		info->philo[i].id = i;
 		info->philo[i].forks = forks;
 		info->philo[i].info = info;
-		pthread_mutex_init(info->philo[i].forks, NULL);
+		pthread_mutex_init(&info->philo[i].forks[i], NULL);
 		i++;
 	}
 }
@@ -47,13 +47,13 @@ int	create_threads_even(t_philo *philo, int n_philo)
 		printf("philo %d is create\n", i);
 		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
 			return (-1);
-		i += 2;
+		i += 1;
 		
 	}
 	return (0);
 }
 
-int	create_threads_odd(t_philo *philo, int n_philo)
+/*int	create_threads_odd(t_philo *philo, int n_philo)
 {
 	int	i;
 	
@@ -67,7 +67,7 @@ int	create_threads_odd(t_philo *philo, int n_philo)
 		
 	}
 	return (0);
-}
+}*/
 
 int	join_mythread(t_philo *philo, int n_philo)
 {
