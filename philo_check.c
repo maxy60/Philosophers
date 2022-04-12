@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 15:23:58 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/12 15:06:26 by msainton         ###   ########.fr       */
+/*   Created: 2022/04/12 15:17:50 by msainton          #+#    #+#             */
+/*   Updated: 2022/04/12 15:34:13 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
-int	main(int argc, char **argv)
+int	alive(t_philo *philo)
 {
-	t_info	info;
+	int	i;
 
-	if (argc == 5 || argc == 6)
+	i = 0;
+	while (i < philo->info->n_philo)
 	{
-		init_info(&info, argv);
-		init_philo_fork(&info);
-		pthread_mutex_init(&info.philo->meal, NULL);
-		create_threads_odd(info.philo, info.n_philo);
-		create_threads_even(info.philo, info.n_philo);
-		pthread_mutex_destroy(&info.philo->meal);
-		join_mythread(info.philo, info.n_philo);
-		free(info.philo);
+		if ()
 	}
-	else
-		ft_putstr_fd("Error: wrong number of argument", 2);
+}
+
+int create_check_thread()
+{
+	pthread_t	check;
+
+	if (pthread_create(&check, NULL, &alive, &check) != 0)
+		return (-1);
 }

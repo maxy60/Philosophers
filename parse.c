@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:13:09 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/08 16:39:54 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/12 16:09:07 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	init_info(t_info *info, char **argv)
 		info->n_of_times_philo_eat = check_max(argv[5]);
 }
 
-#include <stdio.h>
 long int	get_time()
 {
 	long int		timestamp_in_ms;
@@ -70,6 +69,5 @@ long int	get_time_in_process(t_info *info)
 
 	tmp = get_time();
 	new_tmp = tmp - info->time_in_process;
-	printf("new tmp = %ld\ninfo->timeproc = %ld\ntmp: %ld\n", new_tmp, info->time_in_process, tmp);
-	return (tmp);
+	return (new_tmp);
 }
