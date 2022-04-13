@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:52:36 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/12 16:16:32 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/13 16:27:28 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void    init_philo_fork(t_info *info)
 	{
 		info->philo[i].id = i;
 		info->philo[i].ate = 0;
-		info->philo[i].death = 0;
+		info->philo[i].death = info->time_to_die;
 		info->philo[i].forks = forks;
 		info->philo[i].info = info;
 		pthread_mutex_init(&info->philo[i].forks[i], NULL);

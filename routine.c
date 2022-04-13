@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:40:16 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/12 16:44:58 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/13 16:29:54 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	check_meal(t_philo *philo)
 {
 	if (philo[philo->id].ate == 1 && get_time_in_process() <= philo[philo->id].death)
 	{
+		//printf("im here\n");
 		philo[philo->id].ate = 0;
 		philo[philo->id].death += philo->info->time_to_die;
 		return (1);

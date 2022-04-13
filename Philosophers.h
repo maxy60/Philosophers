@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:47:15 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/12 16:07:00 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/13 16:29:10 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int			join_mythread(t_philo *philo, int n_philo);
 /**  routine **/
 void		*routine();
 void		*routine1();
+int			check_meal(t_philo *philo);
+void		check_death(t_philo *philo);
 
 int			main(int argc, char **argv);
 
