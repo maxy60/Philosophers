@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:47:15 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/13 16:29:10 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/15 16:40:17 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_info
 	int				time_to_sleep;
 	long int		time_in_process;
 	int				n_of_times_philo_eat;
+	pthread_mutex_t	meal;
 	struct	s_philo	*philo;
 }	t_info;
 
@@ -37,7 +38,6 @@ typedef struct s_philo
 	int				death;
 	pthread_t		thread;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	meal;
 	t_info			*info;
 }	t_philo;
 
@@ -55,8 +55,8 @@ long int	get_time_in_process();
 /**  function init **/
 void		init_info(t_info *info, char **argv);
 void		init_philo_fork(t_info *info);
-int			create_threads_even(t_philo *philo, int n_philo);
-int			create_threads_odd(t_philo *philo, int n_philo);
+int			create_threads_inpair(t_philo *philo, int n_philo);
+int			create_threads_pair(t_philo *philo, int n_philo);
 int			join_mythread(t_philo *philo, int n_philo);
 
 /**  routine **/

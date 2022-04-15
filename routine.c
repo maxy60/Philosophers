@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:40:16 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/15 15:59:22 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/15 16:53:29 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,12 @@ void	check_death(t_philo *philo)
 
 void	*routine(t_philo *philo)
 {
-	if (philo[philo->id].ate == 0)
-	{
 		take_fork(philo);
-		pthread_mutex_lock(&philo->meal);
+		pthread_mutex_lock(&philo->info->meal);
 		philo[philo->id].ate++;
-		pthread_mutex_unlock(&philo->meal);
+		pthread_mutex_unlock(&philo->info->meal);
 		usleep((philo->info->time_to_eat * 1000));
 		printf("[%ld] philo[%d] is eating\n", get_time_in_process(philo->info), philo->id);
 		drop_fork(philo);
-	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:52:36 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/13 16:27:28 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/15 16:50:36 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void    init_philo_fork(t_info *info)
 	}
 }
 
-int	create_threads_even(t_philo *philo, int n_philo)
+int	create_threads_inpair(t_philo *philo, int n_philo)
 {
 	int	i;
 	
@@ -55,7 +55,7 @@ int	create_threads_even(t_philo *philo, int n_philo)
 	return (0);
 }
 
-int	create_threads_odd(t_philo *philo, int n_philo)
+int	create_threads_pair(t_philo *philo, int n_philo)
 {
 	int	i;
 	
