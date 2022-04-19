@@ -63,16 +63,36 @@ void	check_death(t_philo *philo)
 		if (check_meal(philo) == 0)
 			break ;
 	}
+	philo->is_dead = 1;
+	printf("JE SUIS ICI\n");
 }
 
-void	*routine(t_philo *philo)
+void	eat(t_philo *philo)
 {
 		take_fork(philo);
 		pthread_mutex_lock(&philo->info->meal);
 		philo[philo->id].ate++;
 		pthread_mutex_unlock(&philo->info->meal);
-		usleep((philo->info->time_to_eat * 1000));
 		printf("[%ld] philo[%d] is eating\n", get_time_in_process(philo->info), philo->id);
+		usleep((philo->info->time_to_eat * 1000));
 		drop_fork(philo);
+}
+
+void	dodo(t_philo *philo)
+{
+		usleep(philo->info->time_to_sleep * 1000);
+		printf("[%ld] philo[%d] is sleeping\n", get_time_in_process(philo->info), philo->id);
+}
+
+void	*routine(void *cast)
+{
+	t_philo *philo;
+
+	philo = (t_philo *)cast;
+	while (philo->is_dead != 1)
+	{
+		eat(philo);
+		dodo(philo);
+	}
 	return (0);
 }

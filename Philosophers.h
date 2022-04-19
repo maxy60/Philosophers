@@ -27,6 +27,7 @@ typedef struct s_info
 	int				time_to_sleep;
 	long int		time_in_process;
 	int				n_of_times_philo_eat;
+	pthread_mutex_t	sleep;
 	pthread_mutex_t	meal;
 	struct	s_philo	*philo;
 }	t_info;
@@ -36,6 +37,7 @@ typedef struct s_philo
 	int				id;
 	int				ate;
 	int				death;
+	int				is_dead;
 	pthread_t		thread;
 	pthread_mutex_t	*forks;
 	t_info			*info;
@@ -60,8 +62,7 @@ int			create_threads_pair(t_philo *philo, int n_philo);
 int			join_mythread(t_philo *philo, int n_philo);
 
 /**  routine **/
-void		*routine();
-void		*routine1();
+void		*routine(void *cast);
 int			check_meal(t_philo *philo);
 void		check_death(t_philo *philo);
 

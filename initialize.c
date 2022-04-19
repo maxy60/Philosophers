@@ -31,6 +31,7 @@ void    init_philo_fork(t_info *info)
 	{
 		info->philo[i].id = i;
 		info->philo[i].ate = 0;
+		info->philo[i].is_dead = 0;
 		info->philo[i].death = info->time_to_die;
 		info->philo[i].forks = forks;
 		info->philo[i].info = info;

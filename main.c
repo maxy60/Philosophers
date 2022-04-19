@@ -21,11 +21,13 @@ int	main(int argc, char **argv)
 		init_info(&info, argv);
 		init_philo_fork(&info);
 		pthread_mutex_init(&info.meal, NULL);
+		pthread_mutex_init(&info.sleep, NULL);
 		create_threads_inpair(info.philo, info.n_philo);
 		create_threads_pair(info.philo, info.n_philo);
 		check_death(info.philo);
 		pthread_mutex_destroy(&info.meal);
-		//join_mythread(info.philo, info.n_philo);
+		pthread_mutex_destroy(&info.sleep);
+		join_mythread(info.philo, info.n_philo);
 		free(info.philo);
 	}
 	else
