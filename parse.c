@@ -44,6 +44,7 @@ int check_max(char *str)
 void	init_info(t_info *info, char **argv)
 {
 	info->time_in_process = get_time();
+	info->is_dead = 0;
 	info->n_philo = check_max(argv[1]);
 	info->time_to_die = check_max(argv[2]);
 	info->time_to_eat = check_max(argv[3]);
