@@ -6,6 +6,8 @@ mettre en place la mort des philo au bon moment
 faire dormir et penser les philo lorsqu'il ne mange pas
 
 
-
 mettre en place le nombre de fois ou les philo doivent manger
 check leaks     /
+
+
+test push
