@@ -8,11 +8,8 @@ faire dormir et penser les philo lorsqu'il ne mange pas
 
 mettre en place le nombre de fois ou les philo doivent manger
 check leaks     /
-<<<<<<< HEAD
 
 test author
 
 yo
 test
-=======
->>>>>>> 8a22b58fd0eaed9bc21d7ade67da242037ab4261
