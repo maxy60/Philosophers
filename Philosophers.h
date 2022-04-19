@@ -28,13 +28,14 @@ typedef struct s_info
 	long int		time_in_process;
 	int				n_of_times_philo_eat;
 	int				is_dead;
-//	pthread_mutex_t	meal;
+	pthread_mutex_t	meal;
 	struct	s_philo	*philo;
 }	t_info;
 
 typedef struct s_philo
 {
 	int				id;
+	int				ate;
 	int				death;
 	pthread_t		thread;
 	pthread_mutex_t	*forks;

@@ -43,11 +43,15 @@ void	drop_fork(t_philo *philo)
 
 int	check_meal(t_info *info, int i)
 {
-	if (get_time_in_process(info) <= info->philo[i].death)
+	if (get_time_in_process(info) <= info->philo[i].death && info->philo->ate == 1)
 	{
+		info->philo->ate = 0;
 		info->philo[i].death += info->time_to_die;
 		return (1);
 	}
+	if (get_time_in_process(info) <= info->philo[i].death)
+		return (1);
+
 	printf("[%ld] death philo[%d] = %d\n", get_time_in_process(info), info->philo->id, info->philo[i].death);
 	info->is_dead = 1;
 	join_mythread(info->philo, info->n_philo);
@@ -56,21 +60,26 @@ int	check_meal(t_info *info, int i)
 
 void	check_death(t_info *info)
 {
+	int i;
+
+	i = 0;
 	while (1)
 	{
 		if (check_meal(info, info->philo->id) == 0)
 		{
-			printf("TESTTTTTTTTTTTTTTTTTTTTTTTT\n");
 			break ;
 		}
+			//printf("TEST %d, %ld\n", info->philo->death, get_time_in_process(info));
+		i++;
 	}
 }
 
 void	eat(t_philo *philo)
 {
 		take_fork(philo);
-	//	pthread_mutex_lock(&philo->info->meal);
-	//	pthread_mutex_unlock(&philo->info->meal);
+		pthread_mutex_lock(&philo->info->meal);
+		philo->ate++;
+		pthread_mutex_unlock(&philo->info->meal);
 		printf("[%ld] philo[%d] is eating\n", get_time_in_process(philo->info), philo->id);
 		usleep((philo->info->time_to_eat * 1000));
 		drop_fork(philo);
