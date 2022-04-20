@@ -2,8 +2,7 @@ Resoudre conflit invalid read of size
 
 start philo id at 1 end found whats wrong
 
-mettre en place la mort des philo au bon moment
-faire dormir et penser les philo lorsqu'il ne mange pas
+faire penser les philo lorsqu'ils leur reste du temps entre dormir et manger pas
 
 
 mettre en place le nombre de fois ou les philo doivent manger

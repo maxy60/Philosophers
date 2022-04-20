@@ -51,7 +51,6 @@ int	check_meal(t_info *info, int i)
 	}
 	if (get_time_in_process(info) <= info->philo[i].death)
 		return (1);
-
 	printf("[%ld] death philo[%d] = %d\n", get_time_in_process(info), info->philo->id, info->philo[i].death);
 	info->is_dead = 1;
 	join_mythread(info->philo, info->n_philo);
@@ -69,13 +68,15 @@ void	check_death(t_info *info)
 		{
 			break ;
 		}
-			//printf("TEST %d, %ld\n", info->philo->death, get_time_in_process(info));
 		i++;
 	}
+	printf("is_dead = %d philo have to death at %d, time in process %ld\n",info->is_dead, info->philo->death, get_time_in_process(info));
 }
 
 void	eat(t_philo *philo)
 {
+		if (philo->info->is_dead == 1)
+			return ;
 		take_fork(philo);
 		pthread_mutex_lock(&philo->info->meal);
 		philo->ate++;
@@ -87,6 +88,8 @@ void	eat(t_philo *philo)
 
 void	dodo(t_philo *philo)
 {
+		if (philo->info->is_dead == 1)
+			return ;
 		usleep(philo->info->time_to_sleep * 1000);
 		printf("[%ld] philo[%d] is sleeping\n", get_time_in_process(philo->info), philo->id);
 }
