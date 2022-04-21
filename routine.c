@@ -64,7 +64,7 @@ void	check_death(t_info *info)
 		if (check_meal(info, info->philo->id) == 0)
 			break ;
 	}
-	printf("is_dead = %d philo have to death at %d, time in process %ld\n",info->is_dead, info->philo->death, get_time_in_process(info));
+	printf("is_dead = %d philo[%d] have to death at %d, time in process %ld\n",info->is_dead, info->philo->id, info->philo->death, get_time_in_process(info));
 }
 
 void	eat(t_philo *philo)
@@ -82,10 +82,21 @@ void	eat(t_philo *philo)
 
 void	dodo(t_philo *philo)
 {
+		//int time_thinking;
+
 		if (philo->info->is_dead == 1)
 			return ;
 		usleep(philo->info->time_to_sleep * 1000);
 		printf("[%ld] philo[%d] is sleeping\n", get_time_in_process(philo->info), philo->id);
+		/*time_thinking = philo->info->time_to_sleep + (get_time_in_process(philo->info) - philo->death) < philo->death;
+		if (time_thinking < philo->death)
+		{
+			usleep(time_thinking);
+			printf("[%ld] philo[%d] is thinking\n", get_time_in_process(philo->info), philo->id);
+		}
+		int think = philo->info->time_to_sleep + get_time_in_process(philo->info) - philo->death;
+		printf("[%d] think = %d  death = %d\n", philo->id, think, philo->death);
+*/
 }
 
 void	*routine(void *cast)
