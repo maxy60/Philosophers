@@ -54,7 +54,7 @@ long int	get_time();
 long int	get_time_in_process();
 
 /**  function init **/
-void		init_info(t_info *info, char **argv);
+int			init_info(t_info *info, char **argv);
 void		init_philo_fork(t_info *info);
 int			create_threads_inpair(t_philo *philo, int n_philo);
 int			create_threads_pair(t_philo *philo, int n_philo);

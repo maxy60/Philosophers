@@ -59,16 +59,10 @@ int	check_meal(t_info *info, int i)
 
 void	check_death(t_info *info)
 {
-	int i;
-
-	i = 0;
 	while (1)
 	{
 		if (check_meal(info, info->philo->id) == 0)
-		{
 			break ;
-		}
-		i++;
 	}
 	printf("is_dead = %d philo have to death at %d, time in process %ld\n",info->is_dead, info->philo->death, get_time_in_process(info));
 }

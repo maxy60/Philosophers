@@ -18,7 +18,11 @@ int	main(int argc, char **argv)
 
 	if (argc == 5 || argc == 6)
 	{
-		init_info(&info, argv);
+		if (init_info(&info, argv) == -1)
+		{
+			ft_putstr_fd("Error: argument contain bad value", 2);
+			return (-1);
+		}
 		init_philo_fork(&info);
 		pthread_mutex_init(&info.meal, NULL);
 		create_threads_inpair(info.philo, info.n_philo);

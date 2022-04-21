@@ -19,7 +19,7 @@ int check_if_number(char *str)
     a = 0;
     while (str[a])
     {
-        if (str[a] < '0' && str[a] > '9' && str[a] != '+' && str[a] != '-')
+        if ((str[a] < '0' || str[a] > '9') && str[a] != '+' && str[a] != '-')
             return(0);
         a++;
     }
@@ -41,16 +41,19 @@ int check_max(char *str)
 	return ((int)i);
 }
 
-void	init_info(t_info *info, char **argv)
+int	init_info(t_info *info, char **argv)
 {
+	if (check_max(argv[1]) == -1 || check_max(argv[2]) == -1 || check_max(argv[3]) == -1 || check_max(argv[4]) == -1)
+		return (-1);
 	info->time_in_process = get_time();
 	info->is_dead = 0;
 	info->n_philo = check_max(argv[1]);
 	info->time_to_die = check_max(argv[2]);
 	info->time_to_eat = check_max(argv[3]);
 	info->time_to_sleep = check_max(argv[4]);
-	if (argv[5])
+	if (argv[5] && check_max(argv[5]) != -1)
 		info->n_of_times_philo_eat = check_max(argv[5]);
+	return (0);
 }
 
 long int	get_time()
