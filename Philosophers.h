@@ -62,8 +62,8 @@ int			join_mythread(t_philo *philo, int n_philo);
 
 /**  routine **/
 void		*routine(void *cast);
-int			check_meal(t_info *info, int i);
-void		check_death(t_info *info);
+int			check_meal(t_philo *philo, int i);
+int			check_death(t_philo *philo);
 
 int			main(int argc, char **argv);
 

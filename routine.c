@@ -41,30 +41,32 @@ void	drop_fork(t_philo *philo)
 	pthread_mutex_unlock(&philo->forks[philo->id - 1]);	
 }
 
-int	check_meal(t_info *info, int i)
+int	check_meal(t_philo *philo, int i)
 {
-	if (get_time_in_process(info) <= info->philo[i].death && info->philo->ate == 1)
+	if (get_time_in_process(philo->info) <= philo[i].death && philo->ate == 1)
 	{
-		info->philo->ate = 0;
-		info->philo[i].death += info->time_to_die;
+		philo->ate = 0;
+		philo[i].death += philo->info->time_to_die;
 		return (1);
 	}
-	if (get_time_in_process(info) <= info->philo[i].death)
+	if (get_time_in_process(philo->info) <= philo[i].death)
 		return (1);
-	printf("[%ld] death philo[%d] = %d\n", get_time_in_process(info), info->philo->id, info->philo[i].death);
-	info->is_dead = 1;
-	join_mythread(info->philo, info->n_philo);
+	printf("[%ld] death philo[%d] = %d\n", get_time_in_process(philo->info), philo->id, philo[i].death);
+	philo->info->is_dead = 1;
+	join_mythread(philo, philo->info->n_philo);
 	return (0);
 }
 
-void	check_death(t_info *info)
+int	check_death(t_philo *philo)
 {
-	while (1)
-	{
-		if (check_meal(info, info->philo->id) == 0)
-			break ;
-	}
-	printf("is_dead = %d philo[%d] have to death at %d, time in process %ld\n",info->is_dead, info->philo->id, info->philo->death, get_time_in_process(info));
+	//while (1)
+	//{
+	if (check_meal(philo, philo->id) == 1)
+		return (0);
+	//		break ;
+	//}
+	printf("is_dead = %d philo[%d] have to death at %d, time in process %ld\n",philo->info->is_dead, philo->id, philo->death, get_time_in_process(philo->info));
+	return(1);
 }
 
 void	eat(t_philo *philo)
@@ -104,7 +106,7 @@ void	*routine(void *cast)
 	t_philo *philo;
 
 	philo = (t_philo *)cast;
-	while (philo->info->is_dead != 1)
+	while (check_death(philo) == 0)
 	{
 		eat(philo);
 		dodo(philo);

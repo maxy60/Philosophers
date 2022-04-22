@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 		pthread_mutex_init(&info.meal, NULL);
 		create_threads_inpair(info.philo, info.n_philo);
 		create_threads_pair(info.philo, info.n_philo);
-		check_death(&info);
+		//check_death(info.philo);
 		pthread_mutex_destroy(&info.meal);
 		join_mythread(info.philo, info.n_philo);
 		free(info.philo);
