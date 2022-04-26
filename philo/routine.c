@@ -73,27 +73,27 @@ void	check_death(t_info *info)
 
 void	eat(t_philo *philo)
 {
-		if (philo->info->is_dead == 1)
+	if (philo->info->is_dead == 1)
 			return ;
-		take_fork(philo);
-		pthread_mutex_lock(&philo->mutex_eat);
-		philo->eat++;
-		pthread_mutex_unlock(&philo->mutex_eat);
-		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 2);
-		usleep((philo->info->time_to_eat * 1000));
-		philo->last_eat = get_time_in_process(philo->info);
-		pthread_mutex_lock(&philo->mutex_eat);
-		philo->eat--;
-		pthread_mutex_unlock(&philo->mutex_eat);
-		drop_fork(philo);
+	take_fork(philo);
+	pthread_mutex_lock(&philo->mutex_eat);
+	philo->eat++;
+	pthread_mutex_unlock(&philo->mutex_eat);
+	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 2);
+	usleep((philo->info->time_to_eat * 1000));
+	philo->last_eat = get_time_in_process(philo->info);
+	pthread_mutex_lock(&philo->mutex_eat);
+	philo->eat--;
+	pthread_mutex_unlock(&philo->mutex_eat);
+	drop_fork(philo);
 }
 
 void	dodo(t_philo *philo)
 {
 
-		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 3);
-		usleep(philo->info->time_to_sleep * 1000);
-		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 4);
+	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 3);
+	usleep(philo->info->time_to_sleep * 1000);
+	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 4);
 }
 
 void	*routine(void *cast)

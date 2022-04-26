@@ -46,7 +46,6 @@ int	create_threads(t_philo *philo, int n_philo)
 	i = 0;
 	while (i < n_philo)
 	{
-	//	printf("philo %d is create\n", i);
 		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
 			return (-1);
 		i += 1;
@@ -67,7 +66,6 @@ int	join_mythread(t_philo *philo, int n_philo)
 	{
 		if  (pthread_join(philo[i].thread, NULL) != 0)
 			return (-1);
-	//	printf("thread %i has finish his execution\n", i);
 		i++;
 	}
 	return (0);
