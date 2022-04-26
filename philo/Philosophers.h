@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:47:15 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/15 16:40:17 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/26 10:21:50 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_info
 typedef struct s_philo
 {
 	int				id;
+	int				eat;
 	int				ate;
 	int				death;
 	pthread_t		thread;

@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:40:16 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/26 09:00:10 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/26 10:26:27 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,40 @@ void	drop_fork(t_philo *philo)
 
 int	check_meal(t_info *info, int i)
 {
-	if (get_time_in_process(info) <= info->philo[i].death && info->philo->ate == 1)
+	if (get_time_in_process(info) <= info->philo[i].death && info->philo[i].ate == 1)
 	{
-		info->philo->ate = 0;
+		info->philo[i].ate = 0;
 		info->philo[i].death += info->time_to_die;
 		return (1);
 	}
 	if (get_time_in_process(info) <= info->philo[i].death)
 		return (1);
-	printf("[%ld] death philo[%d] = %d\n", get_time_in_process(info), info->philo->id, info->philo[i].death);
+	printf("[%ld] death philo[%d] = %d\n", get_time_in_process(info), info->philo[i].id, info->philo[i].death);
 	info->is_dead = 1;
 	return (0);
 }
 
 void	check_death(t_info *info)
 {
-	while (1)
+	int i;
+	int	stop;
+	
+	stop = 0;	
+	while (stop != 1)
 	{
-		if (check_meal(info, info->philo->id) == 0)
-			break ;
+		i = 0;
+		while (i < info->n_philo)
+		{
+			if (check_meal(info, info->philo[i].id) == 0)
+			{
+				stop = 1;
+				break ;
+			}
+			i++;
+		}
 	}
-	printf("is_dead = %d philo[%d] have to death at %d, time in process %ld\n",info->is_dead, info->philo->id, info->philo->death, get_time_in_process(info));
+	printf("is_dead = %d philo[%d] have to death at %d, time in process %ld\n",
+	info->is_dead, info->philo[i].id, info->philo[i].death, get_time_in_process(info));
 }
 
 void	eat(t_philo *philo)
@@ -72,10 +85,14 @@ void	eat(t_philo *philo)
 			return ;
 		take_fork(philo);
 		pthread_mutex_lock(&philo->info->meal);
+		philo->eat++;
 		philo->ate++;
 		pthread_mutex_unlock(&philo->info->meal);
 		printf("[%ld] philo[%d] is eating\n", get_time_in_process(philo->info), philo->id);
 		usleep((philo->info->time_to_eat * 1000));
+		pthread_mutex_lock(&philo->info->meal);
+		philo->eat--;
+		pthread_mutex_unlock(&philo->info->meal);
 		drop_fork(philo);
 }
 
@@ -87,7 +104,8 @@ void	dodo(t_philo *philo)
 			return ;
 		usleep(philo->info->time_to_sleep * 1000);
 		printf("[%ld] philo[%d] is sleeping\n", get_time_in_process(philo->info), philo->id);
-		/*time_thinking = philo->info->time_to_sleep + (get_time_in_process(philo->info) - philo->death) < philo->death;
+/*		time_thinking = philo->death - get_time_in_process(philo->info);
+		//time_thinking = philo->info->time_to_sleep + (get_time_in_process(philo->info) - philo->death) < philo->death;
 		if (time_thinking < philo->death)
 		{
 			usleep(time_thinking);

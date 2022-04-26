@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:52:36 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/26 08:59:30 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/26 10:22:19 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void    init_philo_fork(t_info *info)
 	while (i < info->n_philo)
 	{
 		info->philo[i].id = i;
+		info->philo[i].eat = 0;
 		info->philo[i].ate = 0;
 		info->philo[i].death = info->time_to_die;
 		info->philo[i].forks = forks;
@@ -52,7 +53,8 @@ int	create_threads_inpair(t_philo *philo, int n_philo)
 		i += 1;
 		
 	}
-	check_death(philo->info);
+	if (philo->eat != 1)
+		check_death(philo->info);
 	join_mythread(philo, philo->info->n_philo);
 	return (0);
 }
