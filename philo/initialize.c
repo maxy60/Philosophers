@@ -31,16 +31,15 @@ void    init_philo_fork(t_info *info)
 	{
 		info->philo[i].id = i;
 		info->philo[i].eat = 0;
-		info->philo[i].ate = 0;
-		info->philo[i].death = info->time_to_die;
 		info->philo[i].forks = forks;
 		info->philo[i].info = info;
+		pthread_mutex_init(&info->philo[i].mutex_eat, NULL);
 		pthread_mutex_init(&info->philo[i].forks[i], NULL);
 		i++;
 	}
 }
 
-int	create_threads_inpair(t_philo *philo, int n_philo)
+int	create_threads(t_philo *philo, int n_philo)
 {
 	int	i;
 	

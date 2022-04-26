@@ -28,16 +28,16 @@ typedef struct s_info
 	long int		time_in_process;
 	int				n_of_times_philo_eat;
 	int				is_dead;
-	pthread_mutex_t	meal;
+	pthread_mutex_t	mutex_write;
 	struct	s_philo	*philo;
 }	t_info;
 
 typedef struct s_philo
 {
 	int				id;
+	pthread_mutex_t	mutex_eat;
 	int				eat;
-	int				ate;
-	int				death;
+	int				last_eat;
 	pthread_t		thread;
 	pthread_mutex_t	*forks;
 	t_info			*info;
@@ -53,12 +53,13 @@ int			check_if_number(char *str);
 int			check_max(char *str);
 long int	get_time();
 long int	get_time_in_process();
+void		atitude_philo(t_philo *philo, long int time, int id, int atitude);
+
 
 /**  function init **/
 int			init_info(t_info *info, char **argv);
 void		init_philo_fork(t_info *info);
-int			create_threads_inpair(t_philo *philo, int n_philo);
-int			create_threads_pair(t_philo *philo, int n_philo);
+int			create_threads(t_philo *philo, int n_philo);
 int			join_mythread(t_philo *philo, int n_philo);
 
 /**  routine **/

@@ -75,3 +75,22 @@ long int	get_time_in_process(t_info *info)
 	new_tmp = tmp - info->time_in_process;
 	return (new_tmp);
 }
+
+void	atitude_philo(t_philo *philo, long int time, int id, int atitude)
+{
+	pthread_mutex_lock(&philo->info->mutex_write);
+	if (philo->info->is_dead == 0)
+	{
+		if (atitude == 1)
+			printf("[%ld] philo[%d] has taken a fork\n", time, id);
+		else if (atitude == 2)
+			printf("[%ld] philo[%d] is eating\n", time, id);
+		else if (atitude == 3)
+			printf("[%ld] philo[%d] is sleeping\n", time, id);
+		else if (atitude == 4)
+			printf("[%ld] philo[%d] is thinking\n", time, id);
+		else if (atitude == 5)
+			printf("[%ld] philo[%d] died\n", time, id);
+	}
+	pthread_mutex_unlock(&philo->info->mutex_write);
+}

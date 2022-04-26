@@ -19,14 +19,14 @@ void	take_fork(t_philo *philo)
 		usleep(10000);
 		pthread_mutex_lock(&philo->forks[philo->id]);
 		pthread_mutex_lock(&philo->forks[philo->info->n_philo - 1]);
-		printf("[%ld] philo[%d] has taken a fork\n", get_time_in_process(philo->info), philo->id);
+		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);
 		return ;
 	}
 	if (philo->id % 2 == 0)
 		usleep(10000);
 	pthread_mutex_lock(&philo->forks[philo->id - 1]);
 	pthread_mutex_lock(&philo->forks[philo->id]);
-	printf("[%ld] philo[%d] has taken a fork\n", get_time_in_process(philo->info), philo->id);	
+	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);	
 }
 
 void	drop_fork(t_philo *philo)
@@ -43,15 +43,9 @@ void	drop_fork(t_philo *philo)
 
 int	check_meal(t_info *info, int i)
 {
-	if (get_time_in_process(info) <= info->philo[i].death && info->philo[i].ate == 1)
-	{
-		info->philo[i].ate = 0;
-		info->philo[i].death += info->time_to_die;
+	if (get_time_in_process(info) <= info->philo[i].last_eat + info->time_to_die)
 		return (1);
-	}
-	if (get_time_in_process(info) <= info->philo[i].death)
-		return (1);
-	printf("[%ld] death philo[%d] = %d\n", get_time_in_process(info), info->philo[i].id, info->philo[i].death);
+	atitude_philo(info->philo, get_time_in_process(info), info->philo[i].id, 5);
 	info->is_dead = 1;
 	return (0);
 }
@@ -75,8 +69,6 @@ void	check_death(t_info *info)
 			i++;
 		}
 	}
-	printf("is_dead = %d philo[%d] have to death at %d, time in process %ld\n",
-	info->is_dead, info->philo[i].id, info->philo[i].death, get_time_in_process(info));
 }
 
 void	eat(t_philo *philo)
@@ -84,36 +76,24 @@ void	eat(t_philo *philo)
 		if (philo->info->is_dead == 1)
 			return ;
 		take_fork(philo);
-		pthread_mutex_lock(&philo->info->meal);
+		pthread_mutex_lock(&philo->mutex_eat);
 		philo->eat++;
-		philo->ate++;
-		pthread_mutex_unlock(&philo->info->meal);
-		printf("[%ld] philo[%d] is eating\n", get_time_in_process(philo->info), philo->id);
+		pthread_mutex_unlock(&philo->mutex_eat);
+		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 2);
 		usleep((philo->info->time_to_eat * 1000));
-		pthread_mutex_lock(&philo->info->meal);
+		philo->last_eat = get_time_in_process(philo->info);
+		pthread_mutex_lock(&philo->mutex_eat);
 		philo->eat--;
-		pthread_mutex_unlock(&philo->info->meal);
+		pthread_mutex_unlock(&philo->mutex_eat);
 		drop_fork(philo);
 }
 
 void	dodo(t_philo *philo)
 {
-		//int time_thinking;
 
-		if (philo->info->is_dead == 1)
-			return ;
+		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 3);
 		usleep(philo->info->time_to_sleep * 1000);
-		printf("[%ld] philo[%d] is sleeping\n", get_time_in_process(philo->info), philo->id);
-/*		time_thinking = philo->death - get_time_in_process(philo->info);
-		//time_thinking = philo->info->time_to_sleep + (get_time_in_process(philo->info) - philo->death) < philo->death;
-		if (time_thinking < philo->death)
-		{
-			usleep(time_thinking);
-			printf("[%ld] philo[%d] is thinking\n", get_time_in_process(philo->info), philo->id);
-		}
-		int think = philo->info->time_to_sleep + get_time_in_process(philo->info) - philo->death;
-		printf("[%d] think = %d  death = %d\n", philo->id, think, philo->death);
-*/
+		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 4);
 }
 
 void	*routine(void *cast)
