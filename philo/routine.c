@@ -16,15 +16,17 @@ void	take_fork(t_philo *philo)
 {
 	if (philo->id == 0)
 	{
-		usleep(10000);
+	//	usleep(10000);
 		pthread_mutex_lock(&philo->forks[philo->id]);
+		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);
 		pthread_mutex_lock(&philo->forks[philo->info->n_philo - 1]);
 		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);
 		return ;
 	}
-	if (philo->id % 2 == 0)
-		usleep(10000);
+//	if (philo->id % 2 == 0)
+//		usleep(10000);
 	pthread_mutex_lock(&philo->forks[philo->id - 1]);
+	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);
 	pthread_mutex_lock(&philo->forks[philo->id]);
 	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);	
 }
@@ -43,7 +45,7 @@ void	drop_fork(t_philo *philo)
 
 int	check_meal(t_info *info, int i)
 {
-	if (get_time_in_process(info) <= info->philo[i].last_eat + info->time_to_die)
+	if (get_time_in_process(info) <= info->philo[i].last_eat + info->time_to_die || info->philo[i].eat == 1)
 		return (1);
 	atitude_philo(info->philo, get_time_in_process(info), info->philo[i].id, 5);
 	info->is_dead = 1;
@@ -81,7 +83,9 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->mutex_eat);
 	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 2);
 	usleep((philo->info->time_to_eat * 1000));
+	pthread_mutex_lock(&philo->mutex_last_eat);
 	philo->last_eat = get_time_in_process(philo->info);
+	pthread_mutex_unlock(&philo->mutex_last_eat);
 	pthread_mutex_lock(&philo->mutex_eat);
 	philo->eat--;
 	pthread_mutex_unlock(&philo->mutex_eat);
@@ -96,13 +100,25 @@ void	dodo(t_philo *philo)
 	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 4);
 }
 
+/*int each_eat_philo(t_philo *philo, int i)
+{
+	if (!philo->info->n_of_times_philo_eat)
+		return (2);
+	if (philo[i].n_eat < philo->info->n_of_times_philo_eat)
+		return (1);
+	else
+		return (0);
+}*/
+
 void	*routine(void *cast)
 {
 	t_philo *philo;
 
 	philo = (t_philo *)cast;
-	while (philo->info->is_dead != 1)
+	while (philo->info->is_dead != 1)// || each_eat_philo(philo, philo->id) != 0)
 	{
+	//	if (philo->info->n_of_times_philo_eat)
+	//		philo->n_eat++;
 		eat(philo);
 		dodo(philo);
 	}

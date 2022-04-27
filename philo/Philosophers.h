@@ -37,7 +37,9 @@ typedef struct s_philo
 	int				id;
 	pthread_mutex_t	mutex_eat;
 	int				eat;
+	pthread_mutex_t	mutex_last_eat;
 	int				last_eat;
+	//int				n_eat;
 	pthread_t		thread;
 	pthread_mutex_t	*forks;
 	t_info			*info;
