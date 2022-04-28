@@ -14,26 +14,19 @@
 
 void	take_fork(t_philo *philo)
 {
-	if (philo->id == 0)
-	{
-		pthread_mutex_lock(&philo->forks[philo->id % philo->info->n_philo]);
-		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);
-		pthread_mutex_lock(&philo->forks[philo->info->n_philo - 1]);
-		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);
-		return ;
-	}
 	if (philo->id % 2 == 0)
 	{
-		pthread_mutex_lock(&philo->forks[philo->id % philo->info->n_philo]);
+		pthread_mutex_lock(&philo->forks[philo->id]);
 		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);
-		pthread_mutex_lock(&philo->forks[philo->id - 1]);
+		pthread_mutex_lock(&philo->forks[(philo->id - 1) % philo->info->n_philo]);
 		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);
 	}
 	else
 	{
-		pthread_mutex_lock(&philo->forks[philo->id % philo->info->n_philo]);
+		pthread_mutex_lock(&philo->forks[(philo->id - 1) % philo->info->n_philo]);
+		printf("op : %d\n", (philo->id - 1) % philo->info->n_philo);
 		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);
-		pthread_mutex_lock(&philo->forks[philo->id - 1]);
+		pthread_mutex_lock(&philo->forks[philo->id % philo->info->n_philo]);
 		atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);
 	}
 		
@@ -41,12 +34,6 @@ void	take_fork(t_philo *philo)
 
 void	drop_fork(t_philo *philo)
 {
-	if (philo->id == 0)
-	{
-		pthread_mutex_unlock(&philo->forks[philo->id]);
-		pthread_mutex_unlock(&philo->forks[philo->info->n_philo - 1]);
-		return ;
-	}
 	pthread_mutex_unlock(&philo->forks[philo->id]);
 	pthread_mutex_unlock(&philo->forks[philo->id - 1]);	
 }
@@ -86,7 +73,6 @@ void	check_death(t_info *info)
 void	eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->info->mutex_is_dead);
-	printf("is_dead : [%d]\n", philo->info->is_dead);
 	if (philo->info->is_dead == 1)
 	{
 		pthread_mutex_unlock(&philo->info->mutex_is_dead);
@@ -94,17 +80,11 @@ void	eat(t_philo *philo)
 	}
 	pthread_mutex_unlock(&philo->info->mutex_is_dead);
 	take_fork(philo);
-	// pthread_mutex_lock(&philo->mutex_eat);
-	// philo->eat++;
-	// pthread_mutex_unlock(&philo->mutex_eat);
 	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 2);
 	usleep((philo->info->time_to_eat * 1000));
 	pthread_mutex_lock(&philo->mutex_last_eat);
 	philo->last_eat = get_time_in_process(philo->info);
 	pthread_mutex_unlock(&philo->mutex_last_eat);
-	// pthread_mutex_lock(&philo->mutex_eat);
-	// philo->eat--;
-	// pthread_mutex_unlock(&philo->mutex_eat);
 	drop_fork(philo);
 }
 

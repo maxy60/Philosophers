@@ -80,25 +80,21 @@ long int	get_time_in_process(t_info *info)
 
 void	atitude_philo(t_philo *philo, long int time, int id, int atitude)
 {
-	pthread_mutex_lock(&philo->info->mutex_write);
 	pthread_mutex_lock(&philo->info->mutex_is_dead);
 	if (philo->info->is_dead == 0)
 	{
-		pthread_mutex_unlock(&philo->info->mutex_is_dead);
-		if (atitude == 1 || atitude == 2 ||atitude == 3 ||atitude == 4 ||atitude == 5)
-			printf("OK\n");
-		(void)time;
-		(void)id;
-		// if (atitude == 1)
-		// 	printf("%ld %d has taken a fork\n", time, id);
-		// else if (atitude == 2)
-		// 	printf("%ld %d is eating\n", time, id);
-		// else if (atitude == 3)
-		// 	printf("%ld %d is sleeping\n", time, id);
-		// else if (atitude == 4)
-		// 	printf("%ld %d is thinking\n", time, id);
-		// else if (atitude == 5)
-		// 	printf("%ld %d died\n", time, id);
+		pthread_mutex_lock(&philo->info->mutex_write);
+		 if (atitude == 1)
+		 	printf("%ld %d has taken a fork\n", time, id);
+		 else if (atitude == 2)
+		 	printf("%ld %d is eating\n", time, id);
+		 else if (atitude == 3)
+		 	printf("%ld %d is sleeping\n", time, id);
+		 else if (atitude == 4)
+		 	printf("%ld %d is thinking\n", time, id);
+		 else if (atitude == 5)
+		 	printf("%ld %d died\n", time, id);
+		pthread_mutex_unlock(&philo->info->mutex_write);
 	}
-	pthread_mutex_unlock(&philo->info->mutex_write);
+	pthread_mutex_unlock(&philo->info->mutex_is_dead);
 }

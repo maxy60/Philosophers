@@ -26,17 +26,14 @@ void    init_philo_fork(t_info *info)
 	info->philo = malloc(sizeof(t_philo) * info->n_philo);
 	if (!info->philo)
 		return ;
-
 	while (i < info->n_philo)
 	{
 		info->philo[i].id = i;
 	//	if (info->n_of_times_philo_eat)
 	//		info->philo[i].n_eat = 0;
 		info->philo[i].last_eat = 0;
-		info->philo[i].eat = 0;
 		info->philo[i].forks = forks;
 		info->philo[i].info = info;
-		pthread_mutex_init(&info->philo[i].mutex_eat, NULL);
 		pthread_mutex_init(&info->philo[i].mutex_last_eat, NULL);
 		pthread_mutex_init(&info->philo[i].forks[i], NULL);
 		i++;
@@ -75,13 +72,12 @@ int	create_threads_inpair(t_philo *philo, int n_philo)
 
 int create_threads(t_philo *philo, int n_philo)
 {
-	if (create_threads_inpair(philo, n_philo))
-		return (-1);
-	usleep(100);
 	if (create_threads_pair(philo, n_philo))
 		return (-1);
-	if (philo->eat != 1)
-		check_death(philo->info);
+	usleep(1000);
+	if (create_threads_inpair(philo, n_philo))
+		return (-1);
+	check_death(philo->info);
 	join_mythread(philo, philo->info->n_philo);
 	return (0);
 }

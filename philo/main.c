@@ -14,15 +14,15 @@
 
 
 
-void	destroy_mutex(t_philo *philo)
+void	destroy_mutex(t_info *info)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo->info->n_philo)
+	while (i < info->n_philo)
 	{
-		pthread_mutex_destroy(&philo[i].mutex_eat);
-		pthread_mutex_destroy(&philo[i].mutex_last_eat);
+		pthread_mutex_destroy(&info->philo[i].mutex_last_eat);
+		pthread_mutex_destroy(&info->philo[i].forks[i]);
 		i++;
 	}
 }
@@ -42,10 +42,11 @@ int	main(int argc, char **argv)
 		pthread_mutex_init(&info.mutex_write, NULL);
 		pthread_mutex_init(&info.mutex_is_dead, NULL);
 		create_threads(info.philo, info.n_philo);
-		pthread_mutex_destroy(&info.mutex_write);
-		pthread_mutex_destroy(&info.mutex_is_dead);
-		destroy_mutex(info.philo);
-		free(info.philo);
+		//pthread_mutex_destroy(&info.mutex_write);
+		//pthread_mutex_destroy(&info.mutex_is_dead);
+		//destroy_mutex(&info);
+		//free(info.philo->forks);
+		//free(info.philo);
 	}
 	else
 		ft_putstr_fd("Error: wrong number of argument", 2);

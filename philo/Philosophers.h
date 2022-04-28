@@ -36,8 +36,6 @@ typedef struct s_info
 typedef struct s_philo
 {
 	int				id;
-	pthread_mutex_t	mutex_eat;
-	int				eat;
 	pthread_mutex_t	mutex_last_eat;
 	int				last_eat;
 	//int				n_eat;
