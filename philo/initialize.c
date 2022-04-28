@@ -32,6 +32,7 @@ void    init_philo_fork(t_info *info)
 		info->philo[i].id = i;
 	//	if (info->n_of_times_philo_eat)
 	//		info->philo[i].n_eat = 0;
+		info->philo[i].last_eat = 0;
 		info->philo[i].eat = 0;
 		info->philo[i].forks = forks;
 		info->philo[i].info = info;
