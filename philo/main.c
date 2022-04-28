@@ -42,11 +42,11 @@ int	main(int argc, char **argv)
 		pthread_mutex_init(&info.mutex_write, NULL);
 		pthread_mutex_init(&info.mutex_is_dead, NULL);
 		create_threads(info.philo, info.n_philo);
-		//pthread_mutex_destroy(&info.mutex_write);
-		//pthread_mutex_destroy(&info.mutex_is_dead);
-		//destroy_mutex(&info);
-		//free(info.philo->forks);
-		//free(info.philo);
+		pthread_mutex_destroy(&info.mutex_write);
+		pthread_mutex_destroy(&info.mutex_is_dead);
+		destroy_mutex(&info);
+		free(info.philo->forks);
+		free(info.philo);
 	}
 	else
 		ft_putstr_fd("Error: wrong number of argument", 2);
