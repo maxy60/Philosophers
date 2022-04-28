@@ -53,10 +53,6 @@ void	drop_fork(t_philo *philo)
 
 int	check_meal(t_info *info, int i)
 {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 	if (get_time_in_process(info) <= info->philo[i].last_eat + info->time_to_die)
 		return (1);
 	atitude_philo(info->philo, get_time_in_process(info), info->philo[i].id, 5);
