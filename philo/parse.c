@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:13:09 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/12 16:09:07 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/28 15:24:10 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,16 @@ int	init_info(t_info *info, char **argv)
 {
 	if (check_max(argv[1]) == -1 || check_max(argv[2]) == -1 || check_max(argv[3]) == -1 || check_max(argv[4]) == -1)
 		return (-1);
-	info->time_in_process = get_time();
 	info->is_dead = 0;
+	info->time_in_process = get_time();
 	info->n_philo = check_max(argv[1]);
 	info->time_to_die = check_max(argv[2]);
 	info->time_to_eat = check_max(argv[3]);
 	info->time_to_sleep = check_max(argv[4]);
 	if (argv[5] && check_max(argv[5]) != -1)
 		info->n_of_times_philo_eat = check_max(argv[5]);
+	else
+		info->n_of_times_philo_eat = -1;
 	return (0);
 }
 
@@ -79,18 +81,24 @@ long int	get_time_in_process(t_info *info)
 void	atitude_philo(t_philo *philo, long int time, int id, int atitude)
 {
 	pthread_mutex_lock(&philo->info->mutex_write);
+	pthread_mutex_lock(&philo->info->mutex_is_dead);
 	if (philo->info->is_dead == 0)
 	{
-		if (atitude == 1)
-			printf("[%ld] philo[%d] has taken a fork\n", time, id);
-		else if (atitude == 2)
-			printf("[%ld] philo[%d] is eating\n", time, id);
-		else if (atitude == 3)
-			printf("[%ld] philo[%d] is sleeping\n", time, id);
-		else if (atitude == 4)
-			printf("[%ld] philo[%d] is thinking\n", time, id);
-		else if (atitude == 5)
-			printf("[%ld] philo[%d] died\n", time, id);
+		pthread_mutex_unlock(&philo->info->mutex_is_dead);
+		if (atitude == 1 || atitude == 2 ||atitude == 3 ||atitude == 4 ||atitude == 5)
+			printf("OK\n");
+		(void)time;
+		(void)id;
+		// if (atitude == 1)
+		// 	printf("%ld %d has taken a fork\n", time, id);
+		// else if (atitude == 2)
+		// 	printf("%ld %d is eating\n", time, id);
+		// else if (atitude == 3)
+		// 	printf("%ld %d is sleeping\n", time, id);
+		// else if (atitude == 4)
+		// 	printf("%ld %d is thinking\n", time, id);
+		// else if (atitude == 5)
+		// 	printf("%ld %d died\n", time, id);
 	}
 	pthread_mutex_unlock(&philo->info->mutex_write);
 }

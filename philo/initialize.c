@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:52:36 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/26 10:22:19 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/28 14:57:07 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int create_threads(t_philo *philo, int n_philo)
 {
 	if (create_threads_inpair(philo, n_philo))
 		return (-1);
-	usleep(10000);
+	usleep(100);
 	if (create_threads_pair(philo, n_philo))
 		return (-1);
 	if (philo->eat != 1)

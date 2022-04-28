@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:23:58 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/26 08:58:46 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/28 14:59:04 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ int	main(int argc, char **argv)
 		}
 		init_philo_fork(&info);
 		pthread_mutex_init(&info.mutex_write, NULL);
+		pthread_mutex_init(&info.mutex_is_dead, NULL);
 		create_threads(info.philo, info.n_philo);
 		pthread_mutex_destroy(&info.mutex_write);
+		pthread_mutex_destroy(&info.mutex_is_dead);
 		destroy_mutex(info.philo);
 		free(info.philo);
 	}

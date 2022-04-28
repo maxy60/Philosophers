@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:47:15 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/26 10:21:50 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/28 14:58:25 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_info
 	int				time_to_sleep;
 	long int		time_in_process;
 	int				n_of_times_philo_eat;
+	pthread_mutex_t	mutex_is_dead;
 	int				is_dead;
 	pthread_mutex_t	mutex_write;
 	struct	s_philo	*philo;
