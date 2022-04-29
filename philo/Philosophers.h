@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:47:15 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/28 14:58:25 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:46:23 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_info
 typedef struct s_philo
 {
 	int				id;
+	pthread_mutex_t	mutex_eat;
+	int				eat;
 	pthread_mutex_t	mutex_last_eat;
 	int				last_eat;
 	//int				n_eat;
@@ -55,6 +57,7 @@ int			check_max(char *str);
 long int	get_time();
 long int	get_time_in_process();
 void		atitude_philo(t_philo *philo, long int time, int id, int atitude);
+void		my_usleep(long int timetosleep);
 
 
 /**  function init **/

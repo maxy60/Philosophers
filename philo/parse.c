@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:13:09 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/28 15:24:10 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:46:30 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int check_max(char *str)
 
 int	init_info(t_info *info, char **argv)
 {
-	if (check_max(argv[1]) == -1 || check_max(argv[2]) == -1 || check_max(argv[3]) == -1 || check_max(argv[4]) == -1)
+	if (check_max(argv[1]) <= 0 || check_max(argv[1]) == -1 || check_max(argv[2]) == -1 || check_max(argv[3]) == -1 || check_max(argv[4]) == -1)
 		return (-1);
 	info->is_dead = 0;
 	info->time_in_process = get_time();
@@ -97,4 +97,21 @@ void	atitude_philo(t_philo *philo, long int time, int id, int atitude)
 		pthread_mutex_unlock(&philo->info->mutex_write);
 	}
 	pthread_mutex_unlock(&philo->info->mutex_is_dead);
+}
+
+void	my_usleep(long int timetosleep)
+{
+	long int	start;
+	long int	actual_time;
+	long int	end;
+
+	start = get_time();
+	end = start + timetosleep;
+	while (1)
+	{
+		actual_time = get_time();
+		if (actual_time >= end)
+			break ;
+		usleep(100);
+	}
 }

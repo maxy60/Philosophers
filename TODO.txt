@@ -1,6 +1,3 @@
-erreur on philodeath
-opti le temps
-
 s'occuper du cas ou il y'a 1 philo
 
 mettre en place le nombre de fois ou les philo doivent manger

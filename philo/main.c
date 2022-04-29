@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:23:58 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/28 14:59:04 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/29 12:18:50 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	destroy_mutex(t_info *info)
 	i = 0;
 	while (i < info->n_philo)
 	{
+		pthread_mutex_destroy(&info->philo[i].mutex_eat);
 		pthread_mutex_destroy(&info->philo[i].mutex_last_eat);
 		pthread_mutex_destroy(&info->philo[i].forks[i]);
 		i++;
