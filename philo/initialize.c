@@ -29,14 +29,13 @@ void    init_philo_fork(t_info *info)
 	while (i < info->n_philo)
 	{
 		info->philo[i].id = i;
-		info->philo[i].eat = 0;
-	//	if (info->n_of_times_philo_eat)
-	//		info->philo[i].n_eat = 0;
+		if (info->n_of_times_philo_eat > 0)
+			info->philo[i].n_eat = 0;
 		info->philo[i].last_eat = 0;
 		info->philo[i].forks = forks;
 		info->philo[i].info = info;
 		pthread_mutex_init(&info->philo[i].mutex_last_eat, NULL);
-		pthread_mutex_init(&info->philo[i].mutex_eat, NULL);
+		pthread_mutex_init(&info->philo[i].mutex_n_eat, NULL);
 		pthread_mutex_init(&info->philo[i].forks[i], NULL);
 		i++;
 	}

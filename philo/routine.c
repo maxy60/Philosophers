@@ -68,6 +68,27 @@ int	check_meal(t_info *info, int i)
 	return (0);
 }
 
+int each_eat_philo(t_info *info)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < info->n_philo)
+	{
+		if (info->philo[i].n_eat == info->n_of_times_philo_eat)
+			j++;
+		i++;
+	}
+	if (j == info->n_philo)
+	{
+		info->as_eat = 1;
+		return (0);
+	}
+	return (1);
+}
+
 void	check_death(t_info *info)
 {
 	int i;
@@ -79,6 +100,11 @@ void	check_death(t_info *info)
 		i = 0;
 		while (i < info->n_philo)
 		{
+			if (each_eat_philo(info) == 0)
+			{
+				stop = 1;
+				break ;
+			}
 			if (check_meal(info, info->philo[i].id) == 0)
 			{
 				stop = 1;
@@ -98,24 +124,22 @@ void	eat(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_unlock(&philo->info->mutex_is_dead);
-	pthread_mutex_lock(&philo->mutex_eat);
-	philo->eat++;
-	pthread_mutex_unlock(&philo->mutex_eat);
 	take_fork(philo);
 	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 2);
 	usleep((philo->info->time_to_eat * 1000));
+	pthread_mutex_lock(&philo->mutex_n_eat);
+	philo->n_eat++;
+	pthread_mutex_unlock(&philo->mutex_n_eat);
 	pthread_mutex_lock(&philo->mutex_last_eat);
 	philo->last_eat = get_time_in_process(philo->info);
 	pthread_mutex_unlock(&philo->mutex_last_eat);
 	drop_fork(philo);
-	 pthread_mutex_lock(&philo->mutex_eat);
-	 philo->eat--;
-	 pthread_mutex_unlock(&philo->mutex_eat);
-	
 }
 
 void	dodo(t_philo *philo)
-{	
+{
+	if (philo->info->as_eat == 1)
+		return ;
 	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 3);
 	usleep(philo->info->time_to_sleep * 1000);
 	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 4);
@@ -123,27 +147,15 @@ void	dodo(t_philo *philo)
 		usleep(((philo->info->time_to_die - (philo->info->time_to_eat + philo->info->time_to_sleep)) / 2) * 1000);
 }
 
-/*int each_eat_philo(t_philo *philo, int i)
-{
-	if (!philo->info->n_of_times_philo_eat)
-		return (2);
-	if (philo[i].n_eat < philo->info->n_of_times_philo_eat)
-		return (1);
-	else
-		return (0);
-}*/
 
 void	*routine(void *cast)
 {
 	t_philo *philo;
 
 	philo = (t_philo *)cast;
-	//pthread_mutex_lock(&philo->info->mutex_is_dead);
-	while (philo->info->is_dead != 1)// || each_eat_philo(philo, philo->id) != 0)
+
+	while (philo->info->is_dead != 1 && philo->info->as_eat != 1)
 	{
-	//pthread_mutex_unlock(&philo->info->mutex_is_dead);
-	//	if (philo->info->n_of_times_philo_eat)
-	//		philo->n_eat++;
 		eat(philo);
 		dodo(philo);
 	}

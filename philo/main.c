@@ -21,8 +21,8 @@ void	destroy_mutex(t_info *info)
 	i = 0;
 	while (i < info->n_philo)
 	{
-		pthread_mutex_destroy(&info->philo[i].mutex_eat);
 		pthread_mutex_destroy(&info->philo[i].mutex_last_eat);
+		pthread_mutex_destroy(&info->philo[i].mutex_n_eat);
 		pthread_mutex_destroy(&info->philo[i].forks[i]);
 		i++;
 	}

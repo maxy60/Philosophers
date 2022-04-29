@@ -29,6 +29,7 @@ typedef struct s_info
 	int				n_of_times_philo_eat;
 	pthread_mutex_t	mutex_is_dead;
 	int				is_dead;
+	int				as_eat;
 	pthread_mutex_t	mutex_write;
 	struct	s_philo	*philo;
 }	t_info;
@@ -36,18 +37,17 @@ typedef struct s_info
 typedef struct s_philo
 {
 	int				id;
-	pthread_mutex_t	mutex_eat;
-	int				eat;
 	pthread_mutex_t	mutex_last_eat;
 	int				last_eat;
-	//int				n_eat;
+	pthread_mutex_t	mutex_n_eat;
+	int				n_eat;
 	pthread_t		thread;
 	pthread_mutex_t	*forks;
 	t_info			*info;
 }	t_philo;
 
 /** function lib    **/
-int			ft_atoi(const char *str);
+long int	ft_atoi(const char *str);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putnbr(int n);
 
