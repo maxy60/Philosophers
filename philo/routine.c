@@ -138,6 +138,7 @@ void	eat(t_philo *philo)
 
 void	dodo(t_philo *philo)
 {
+	//printf(" as eat %d time = %ld\n", philo->info->as_eat, get_time_in_process(philo->info));
 	if (philo->info->as_eat == 1)
 		return ;
 	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 3);
@@ -147,6 +148,12 @@ void	dodo(t_philo *philo)
 		usleep(((philo->info->time_to_die - (philo->info->time_to_eat + philo->info->time_to_sleep)) / 2) * 1000);
 }
 
+void	one_philo_routine(t_philo *philo)
+{
+    atitude_philo(philo, get_time_in_process(philo->info), philo->id, 1);
+	usleep(philo->info->time_to_die * 1000);
+	return ;
+}
 
 void	*routine(void *cast)
 {
@@ -154,6 +161,11 @@ void	*routine(void *cast)
 
 	philo = (t_philo *)cast;
 
+	if (philo->info->n_philo == 1)
+	{
+		one_philo_routine(philo);
+		return (0);
+	}
 	while (philo->info->is_dead != 1 && philo->info->as_eat != 1)
 	{
 		eat(philo);

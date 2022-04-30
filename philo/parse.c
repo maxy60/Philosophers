@@ -100,6 +100,7 @@ void	atitude_philo(t_philo *philo, long int time, int id, int atitude)
 		pthread_mutex_unlock(&philo->info->mutex_write);
 	}
 	pthread_mutex_unlock(&philo->info->mutex_is_dead);
+
 }
 
 void	my_usleep(long int timetosleep)
