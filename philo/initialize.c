@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:52:36 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/30 11:37:43 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/30 12:12:40 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void	init_philo_fork(t_info *info)
 	while (i < info->n_philo)
 	{
 		info->philo[i].id = i;
-		if (info->n_of_times_philo_eat > 0)
-			info->philo[i].n_eat = 0;
+		info->philo[i].n_eat = 0;
 		info->philo[i].last_eat = 0;
 		info->philo[i].forks = forks;
 		info->philo[i].info = info;

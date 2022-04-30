@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:40:16 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/30 11:55:41 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/30 12:10:47 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	eat(t_philo *philo)
 
 void	dodo(t_philo *philo)
 {
-	printf(" as eat %d time = %ld\n", philo->info->as_eat, get_time_in_process(philo->info));
 	if (philo->info->as_eat == 1)
 		return ;
 	atitude_philo(philo, get_time_in_process(philo->info), philo->id, 3);

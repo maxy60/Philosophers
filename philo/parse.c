@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:13:09 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/30 11:32:02 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/30 12:11:10 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,14 @@ int	init_info(t_info *info, char **argv)
 		|| check_max(argv[4]) == -1)
 		return (-1);
 	info->is_dead = 0;
+	info->as_eat = 0;
 	info->time_in_process = get_time();
 	info->n_philo = check_max(argv[1]);
 	info->time_to_die = check_max(argv[2]);
 	info->time_to_eat = check_max(argv[3]);
 	info->time_to_sleep = check_max(argv[4]);
 	if (argv[5] && check_max(argv[5]) != -1)
-	{
 		info->n_of_times_philo_eat = check_max(argv[5]);
-		info->as_eat = 0;
-	}
 	else
 		info->n_of_times_philo_eat = -1;
 	return (0);

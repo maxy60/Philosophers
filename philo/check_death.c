@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 11:44:45 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/30 11:49:10 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/30 12:29:50 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ int	each_eat_philo(t_info *info)
 	j = 0;
 	while (i < info->n_philo)
 	{
+		pthread_mutex_lock(&info->philo[i].mutex_n_eat);
 		if (info->philo[i].n_eat == info->n_of_times_philo_eat)
 			j++;
+		pthread_mutex_unlock(&info->philo[i].mutex_n_eat);
 		i++;
 	}
 	if (j == info->n_philo)
