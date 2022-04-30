@@ -12,8 +12,6 @@
 
 #include "Philosophers.h"
 
-
-
 void	destroy_mutex(t_info *info)
 {
 	int	i;

@@ -2,7 +2,10 @@ SRCS		= main.c		\
 			  func_ft.c		\
 			  initialize.c	\
 			  parse.c		\
-			  routine.c
+			  routine.c		\
+			  func_time.c	\
+			  forks.c		\
+			  check_death.c
 
 OBJS		= ${SRCS:.c=.o} 
 

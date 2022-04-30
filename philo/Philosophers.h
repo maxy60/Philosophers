@@ -6,18 +6,18 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:47:15 by msainton          #+#    #+#             */
-/*   Updated: 2022/04/29 13:46:23 by msainton         ###   ########.fr       */
+/*   Updated: 2022/04/30 11:49:22 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-#include <stdio.h>
-#include <pthread.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/time.h>
+# include <stdio.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <sys/time.h>
 
 typedef struct s_info
 {
@@ -31,7 +31,7 @@ typedef struct s_info
 	int				is_dead;
 	int				as_eat;
 	pthread_mutex_t	mutex_write;
-	struct	s_philo	*philo;
+	struct s_philo	*philo;
 }	t_info;
 
 typedef struct s_philo
@@ -54,11 +54,14 @@ void		ft_putnbr(int n);
 /**  function parse   **/
 int			check_if_number(char *str);
 int			check_max(char *str);
-long int	get_time();
-long int	get_time_in_process();
+long int	get_time(void);
+long int	get_time_in_process(t_info *info);
 void		atitude_philo(t_philo *philo, long int time, int id, int atitude);
 void		my_usleep(long int timetosleep);
 
+/** function forks **/
+void		take_fork(t_philo *philo);
+void		drop_fork(t_philo *philo);
 
 /**  function init **/
 int			init_info(t_info *info, char **argv);
